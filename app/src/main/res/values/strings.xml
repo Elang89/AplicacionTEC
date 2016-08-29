@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AplicacionTEC</string>
+    <string name="facebook_app_id">147175372393978</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="title_text">Sign in with Google</string>
+</resources>
