@@ -10,38 +10,51 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Carrera>  items;
+    private ArrayList<String>  names;
+    private ArrayList<Long> ids;
+    private ArrayList<String> schools;
+    private ArrayList<String> images;
+
     LayoutInflater mInflater;
 
-    public ImageAdapter(Context context, ArrayList<Carrera> items) {
+    public ImageAdapter(Context context, ArrayList<String> names, ArrayList<Long> ids,
+                        ArrayList<String> schools, ArrayList<String> images) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
-        this.items = items;
+        this.schools = schools;
+        this.names = names;
+        this.ids = ids;
+        this.images = images;
     }
 
     @Override
-    public int getCount()
-    {
-        return items.size();
+    public int getCount() {
+        return ids.size();
     }
 
     @Override
     public Object getItem(int i) {
+        return null;
+    }
 
-        return items.get(i);
+    public String getName(int i){
+        return names.get(i);
+    }
+
+    public String getSchools(int i){
+        return schools.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        long id;
-        Carrera carrera = items.get(i);
-        id = Long.parseLong(carrera.idCarrera);
-        return id;
+        return ids.get(i);
     }
 
     @Override
@@ -49,6 +62,8 @@ public class ImageAdapter extends BaseAdapter {
         View v = view;
         ImageView picture;
         TextView name;
+        String career_name;
+        String image_source;
 
         if(v == null) {
             v = mInflater.inflate(R.layout.grid_item, viewGroup, false);
@@ -56,13 +71,16 @@ public class ImageAdapter extends BaseAdapter {
             v.setTag(R.id.text, v.findViewById(R.id.text));
         }
 
+
         picture = (ImageView) v.getTag(R.id.picture);
         name = (TextView) v.getTag(R.id.text);
 
-        Carrera carrera = (Carrera) getItem(i);
+        career_name = names.get(i);
+        image_source = images.get(i);
 
-        picture.setImageResource(R.mipmap.placeholder1);
-        name.setText(carrera.Nombre);
+        Picasso.with(context).load(image_source).error(R.mipmap.placeholder1)
+                .into(picture);
+        name.setText(career_name);
 
         return v;
     }
